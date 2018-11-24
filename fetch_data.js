@@ -23,7 +23,7 @@ function getByCase(CaseName){
         }, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 const dom = new JSDOM(body);
-                let resp = Array.from(dom.window.document.querySelectorAll("#divContent > table > tbody > tr:nth-child(4) > td > table > tbody > tr.trT > td")).map(x => x.innerHTML.replace(",",""));
+                let resp = Array.from(dom.window.document.querySelectorAll("#divContent > table > tbody > tr:nth-child(4) > td > table > tbody > tr.trT > td")).map(x => x.innerHTML.replace(/,/g,""));
                 results[CaseName][CountyName] = {};
                 results[CaseName][CountyName]["Agree"] = parseInt(resp[0]);
                 results[CaseName][CountyName]["Disagree"] = parseInt(resp[1]);
