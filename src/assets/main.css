@@ -9,3 +9,7 @@
 html {
     background : #f7f7f7;
 }
+
+*:focus {
+    outline: none;
+}

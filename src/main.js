@@ -27,23 +27,24 @@ xhr.onreadystatechange = function() {
                 tippy('.country').destroyAll();
                 btn.className = "ts active button"
                 current = data[key]
-                for(const cy in current){
-                    tippy('#'+cy, { 
-                        content: `  ${cy} <br><br>
-                                    同意票數 : ${current[cy]["Agree"]}<br>
-                                    不同意票數 : ${current[cy]["Disagree"]}<br>
-                                    有效票數 : ${current[cy]["Effective"]}<br>
-                                    無效票數 : ${current[cy]["Invalid"]}<br>
-                                    投票數 : ${current[cy]["Votes"]}<br>
-                                    投票權人數 : ${current[cy]["VotingRights"]}<br>
-                                    投票率(%) : ${current[cy]["VoteRate"]}%<br>
-                                    有效同意票數對投票權人數百分比(%) : ${current[cy]["EffectiveVotingRights"]}%`,
-                        arrow: true,
-                        arrowType: 'round',
-                        size: 'large',
-                        placement:"right"
-                    })
-                }
+                //for(const cy in current){
+                //    tippy('#'+cy, { 
+                //        content: `  ${cy} <br><br>
+                //                    同意票數 : ${current[cy]["Agree"]}<br>
+                //                    不同意票數 : ${current[cy]["Disagree"]}<br>
+                //                    有效票數 : ${current[cy]["Effective"]}<br>
+                //                    無效票數 : ${current[cy]["Invalid"]}<br>
+                //                    投票數 : ${current[cy]["Votes"]}<br>
+                //                    投票權人數 : ${current[cy]["VotingRights"]}<br>
+                //                    投票率(%) : ${current[cy]["VoteRate"]}%<br>
+                //                    有效同意票數對投票權人數百分比(%) : ${current[cy]["EffectiveVotingRights"]}%`,
+                //        arrow: true,
+                //        arrowType: 'round',
+                //        size: 'large',
+                //        placement:"right"
+                //    })
+                //}
+                updateNum(current[nowCT]);
             }
             document.getElementById("btns").appendChild(btn);
         }
@@ -52,26 +53,48 @@ xhr.onreadystatechange = function() {
 xhr.open("GET", "results.json", true);
 xhr.send();
 
+var nowPos = "";
+var nowCT = "";
+
+var selectedColor = "black";
+var unselectColor = "white";
+
+document.body.onmousedown = () => {
+    if(nowPos){
+        nowCT = nowPos;
+        updateNum(current[nowCT]);
+        Array.from(document.getElementsByClassName("country")).forEach(ct => {ct.style.fill = "white"});
+        document.getElementById(nowCT).style.fill = selectedColor;
+    }
+}
+
 Array.from(document.getElementsByClassName("country")).forEach(c => {
     c.style.fill = "white";
     c.addEventListener("mouseover",() => {
-        updateNum(current[c.id])
-        c.style.fill = "black";
+        nowPos = c.id;
+        c.style.fill = selectedColor;
     })
     c.addEventListener("mouseout",() => {
-        c.style.fill = "white";
+        if(nowCT != nowPos){
+            c.style.fill = unselectColor;
+        }
+        nowPos = "";
     })
 })
 
 function updateNum(data){
     Agree.update(data["Agree"]);
+    document.getElementById("AgreeP").innerHTML = Math.round((data["Agree"] / (data["Agree"] + data["Disagree"])) * 100) + "%";
     Disagree.update(data["Disagree"]);
+    document.getElementById("DisagreeP").innerHTML = Math.round((data["Disagree"] / (data["Agree"] + data["Disagree"])) * 100) + "%";
     Effective.update(data["Effective"]);
+    document.getElementById("EffectiveP").innerHTML = Math.round((data["Effective"] / (data["Effective"] + data["Invalid"])) * 100) + "%";
     Invalid.update(data["Invalid"]);
+    document.getElementById("InvalidP").innerHTML = Math.round((data["Invalid"] / (data["Effective"] + data["Invalid"])) * 100) + "%";
     Votes.update(data["Votes"]);
     VotingRights.update(data["VotingRights"]);
-    VoteRate.update(data["VoteRate"]);
-    EffectiveVotingRights.update(data["EffectiveVotingRights"]);
+    VoteRate.update(data["VoteRate"]+"%");
+    EffectiveVotingRights.update(data["EffectiveVotingRights"]+"%");
 }
 
 var Agree = new Odometer({el: document.getElementById("Agree"),value: 0,format: '(,ddd)',theme: 'minimal'});
