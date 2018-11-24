@@ -97,11 +97,11 @@ function updateNum(data){
     EffectiveVotingRights.update(data["EffectiveVotingRights"]+"%");
 }
 
-var Agree = new Odometer({el: document.getElementById("Agree"),value: 0,format: '(,ddd)',theme: 'minimal'});
-var Disagree = new Odometer({el: document.getElementById("Disagree"),value: 0,format: '(,ddd)',theme: 'minimal'});
-var Effective = new Odometer({el: document.getElementById("Effective"),value: 0,format: '(,ddd)',theme: 'minimal'});
-var Invalid = new Odometer({el: document.getElementById("Invalid"),value: 0,format: '(,ddd)',theme: 'minimal'});
-var Votes = new Odometer({el: document.getElementById("Votes"),value: 0,format: '(,ddd)',theme: 'minimal'});
-var VotingRights = new Odometer({el: document.getElementById("VotingRights"),value: 0,format: '(,ddd)',theme: 'minimal'});
+var Agree = new Odometer({el: document.getElementById("Agree"),value: 0,format: 'd',theme: 'minimal'});
+var Disagree = new Odometer({el: document.getElementById("Disagree"),value: 0,format: 'd',theme: 'minimal'});
+var Effective = new Odometer({el: document.getElementById("Effective"),value: 0,format: 'd',theme: 'minimal'});
+var Invalid = new Odometer({el: document.getElementById("Invalid"),value: 0,format: 'd',theme: 'minimal'});
+var Votes = new Odometer({el: document.getElementById("Votes"),value: 0,format: 'd',theme: 'minimal'});
+var VotingRights = new Odometer({el: document.getElementById("VotingRights"),value: 0,format: 'd',theme: 'minimal'});
 var VoteRate = new Odometer({el: document.getElementById("VoteRate"),value: 0,format: '',theme: 'minimal'});
 var EffectiveVotingRights = new Odometer({el: document.getElementById("EffectiveVotingRights"),value: 0,format: '',theme: 'minimal'});
