@@ -16,6 +16,7 @@ done["Referendum"] = 0;
 results["Referendum"] = {};
 
 function ReferendumRequest(CaseName,CountyName,RegionName){
+    console.log("Referendum",CaseName,CountyName,RegionName,"Requested.");
     request({
         url: voteurls["Referendum"][CaseName][CountyName][RegionName],
         timeout:5000
