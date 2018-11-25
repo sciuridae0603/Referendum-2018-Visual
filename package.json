@@ -10,6 +10,7 @@
   "dependencies": {
     "d3": "^5.7.0",
     "taiwan-vue-components": "^1.0.7",
+    "then-request": "^6.0.0",
     "vue": "^2.5.17"
   },
   "devDependencies": {
