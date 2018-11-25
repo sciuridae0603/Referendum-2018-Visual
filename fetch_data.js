@@ -4,8 +4,10 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var fs = require('fs');
 
-var results = {};
+// Setting
+var ShowRequestInfo = true;
 
+var results = {};
 var count = {};
 var done = {};
 
@@ -16,7 +18,7 @@ done["Referendum"] = 1;
 results["Referendum"] = {};
 
 function ReferendumRequest(CaseName,CountyName,RegionName){
-    console.log("Referendum",CaseName,CountyName,RegionName,"Requested.");
+    if(ShowRequestInfo){console.log("Referendum",CaseName,CountyName,RegionName,"Requested.");{}
     request({
         url: voteurls["Referendum"][CaseName][CountyName][RegionName],
         timeout:20000
@@ -33,10 +35,10 @@ function ReferendumRequest(CaseName,CountyName,RegionName){
             results["Referendum"][CaseName][CountyName][RegionName]["VotingRights"] = parseInt(resp[5]);
             results["Referendum"][CaseName][CountyName][RegionName]["VoteRate"] = parseFloat(resp[6].replace("%",""));
             results["Referendum"][CaseName][CountyName][RegionName]["EffectiveVotingRights"] = parseFloat(resp[7].replace("%",""));
-            console.log("Referendum",CaseName,CountyName,RegionName,"Done","      " + ( count["Referendum"] - done["Referendum"]) + " Left");
+            if(ShowRequestInfo){console.log("Referendum",CaseName,CountyName,RegionName,"Done","      " + ( count["Referendum"] - done["Referendum"]) + " Left");}
             done["Referendum"]++;
         }else{
-            console.log("Referendum",CaseName,CountyName,RegionName,"Failed Retrying.");
+            if(ShowRequestInfo){console.log("Referendum",CaseName,CountyName,RegionName,"Failed Retrying.");}
             ReferendumRequest(CaseName,CountyName,RegionName)
         }
     })
@@ -67,8 +69,10 @@ for (const CaseName in voteurls["Referendum"]){
 }
 
 var waitInt = setInterval(() => {
-    var done = true;
+    var done = true;        
+    console.log("Waiting Fetch ...");
     for(const Name in count){
+        console.log(Name ,"Count : ",count[Name],"Done : ",done[Name],"Left : ",(count[Name] - done[Name]))
         if(count[Name] != done[Name]){
             done = false;
         }
@@ -78,4 +82,4 @@ var waitInt = setInterval(() => {
         console.log("All done! Writing file....");
         fs.writeFile("results.json",JSON.stringify(results),'utf8',()=>{});
     }
-},100)
+},200)
