@@ -22,7 +22,7 @@ function getResults() {
             results = JSON.parse(xhr.responseText);
             console.log(results)
 
-            document.getElementById("updateAt").innerHTML = "資料更新於 : " + new Date(results["updateAt"]).toLocaleString('zh-TW', { timeZone: 'UTC' })
+            document.getElementById("updateAt").innerHTML = "資料更新於 : " + new Date(results["updateAt"]).toLocaleString('zh-TW')
 
             if (nowPage == "Referendum") {
                 initReferendum()
