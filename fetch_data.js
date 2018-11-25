@@ -14,7 +14,7 @@ var done = {};
 // Referendum
 
 count["Referendum"] = 0;
-done["Referendum"] = 1;
+done["Referendum"] = 0;
 results["Referendum"] = {};
 
 function ReferendumRequest(CaseName,CountyName,RegionName){
@@ -69,15 +69,15 @@ for (const CaseName in voteurls["Referendum"]){
 }
 
 var waitInt = setInterval(() => {
-    var done = true;        
+    var finish = true;        
     console.log("Waiting Fetch ...");
     for(const Name in count){
         console.log(Name ,"Count : ",count[Name],"Done : ",done[Name],"Left : ",(count[Name] - done[Name]))
         if(count[Name] != done[Name]){
-            done = false;
+            finish = false;
         }
     }
-    if(done){
+    if(finish){
         clearInterval(waitInt);
         console.log("All done! Writing file....");
         fs.writeFile("results.json",JSON.stringify(results),'utf8',()=>{});
