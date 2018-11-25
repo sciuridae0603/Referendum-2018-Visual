@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "update": "cd crawler & node ./urls.js && node fetchData.js",
+    "update": "node crawler/urls.js && node crawler/fetchData.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

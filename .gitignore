@@ -20,6 +20,5 @@ yarn-error.log*
 *.sw*
 test.js
 
-results.json
 urls.json
 public/results.json
