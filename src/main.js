@@ -79,7 +79,9 @@ function initReferendum() {
     document.body.onmousedown = () => {
         if (tempData["nowPos"]) {
             tempData["Referendum"]["nowCT"] = tempData["nowPos"];
-            updateReferendumNum(current["Referendum"][tempData["Referendum"]["nowCT"]][tempData["Referendum"]["nowCT"]]);
+            if("Referendum" in current){
+                updateReferendumNum(current["Referendum"][tempData["Referendum"]["nowCT"]][tempData["Referendum"]["nowCT"]]);
+            }
             Array.from(document.getElementsByClassName("country")).forEach(ct => {
                 ct.style.fill = "white"
             });
