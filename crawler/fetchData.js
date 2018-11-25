@@ -42,7 +42,7 @@ var owo = setInterval(() => {
     }
     if (done == needed){
         console.log("[Data] All done ! Writing File...")
-        fs.writeFile("../public/results.json",JSON.stringify(results,null,2),'utf8',()=>{})        
+        fs.writeFile("./public/results.json",JSON.stringify(results,null,2),'utf8',()=>{})        
         clearInterval(owo)
     }
 },300)

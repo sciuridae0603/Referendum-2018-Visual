@@ -19,7 +19,7 @@ function addResult(Name , Func){
 var owo = setInterval(() => {
     if (done == needed){
         console.log("[URL] All done !")
-        fs.writeFile("../urls.json",JSON.stringify(results,null,2),'utf8',()=>{})        
+        fs.writeFile("./urls.json",JSON.stringify(results,null,2),'utf8',()=>{})        
         clearInterval(owo)
     }
 },100)
