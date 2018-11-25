@@ -35,9 +35,6 @@ function ReferendumRequest(CaseName,CountyName,RegionName){
             results["Referendum"][CaseName][CountyName][RegionName]["EffectiveVotingRights"] = parseFloat(resp[7].replace("%",""));
             console.log("Referendum",CaseName,CountyName,RegionName,"Done","      " + ( count["Referendum"] - done["Referendum"]) + " Left");
             done["Referendum"]++;
-            if(done["Referendum"] == count["Referendum"]){
-                fs.writeFile("results.json",JSON.stringify(results),'utf8',()=>{})
-            }
         }else{
             console.log("Referendum",CaseName,CountyName,RegionName,"Failed Retrying.");
             ReferendumRequest(CaseName,CountyName,RegionName)
@@ -76,5 +73,9 @@ var waitInt = setInterval(() => {
             done = false;
         }
     }
-    if(done){clearInterval(waitInt)}
-},10)
+    if(done){
+        clearInterval(waitInt);
+        console.log("All done! Writing file....");
+        fs.writeFile("results.json",JSON.stringify(results),'utf8',()=>{});
+    }
+},100)
