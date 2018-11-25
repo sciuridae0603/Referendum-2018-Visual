@@ -6,10 +6,20 @@
     justify-content: center;
 }
 
+button {
+    white-space: nowrap;
+}
+
 html {
     background : #f7f7f7;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
 }
 
 *:focus {
     outline: none;
 }
+

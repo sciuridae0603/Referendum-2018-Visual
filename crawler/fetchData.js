@@ -5,7 +5,7 @@ const fs = require("fs");
 var needed = 0;
 var done = 0;
 var running = {}
-var results = {};
+var results = {"updateAt" : (new Date()).toJSON()};
 
 function getCount(Data){
     tmp = 0;

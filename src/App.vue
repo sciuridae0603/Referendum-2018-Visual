@@ -1,12 +1,15 @@
 <template>
     <div id="app">
+        <div id="loader" class="ts active dimmer">
+            <div class="ts loader"></div>
+        </div>
         <div class="ts container">
             <div class="ts grid">
                 <div class="sixteen wide column">
                     <div class="ts stackable secondary menu">
-                        <a class="item">首頁</a>
+                        <a class="item" id="navNotice"></a>
                         <div class="right menu">
-                            <div id="btns" class="ts fluid stackable buttons"></div>
+                            <div id="ReferendumBtns" class="ts fluid stackable buttons"></div>
                         </div>
                     </div>
                 </div>
@@ -15,7 +18,7 @@
                 <div class="six wide column">
                     <Country id="map" :stroke="stroke" :scale="scale" :width="width" :height="height" :lon="lon/100" :lat="lat/100" :fill="fill" :fit="fit"></Country>
                 </div>
-                <div class="ten wide column">
+                <div class="ten wide column" id="Referendum">
                     <br>
                     <div class="ts fluid medium divided statistics">
                         <div class="statistic">
@@ -66,6 +69,7 @@
                     </div>
                 </div>
             </div>
+            <span id="updateAt"></span>
         </div>
     </div>
 </template>
