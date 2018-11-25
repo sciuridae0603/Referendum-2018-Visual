@@ -19,7 +19,7 @@ function ReferendumRequest(CaseName,CountyName,RegionName){
     console.log("Referendum",CaseName,CountyName,RegionName,"Requested.");
     request({
         url: voteurls["Referendum"][CaseName][CountyName][RegionName],
-        timeout:5000
+        timeout:20000
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             const dom = new JSDOM(body);
