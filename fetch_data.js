@@ -12,7 +12,7 @@ var done = {};
 // Referendum
 
 count["Referendum"] = 0;
-done["Referendum"] = 0;
+done["Referendum"] = 1;
 results["Referendum"] = {};
 
 function ReferendumRequest(CaseName,CountyName,RegionName){
@@ -39,6 +39,7 @@ function ReferendumRequest(CaseName,CountyName,RegionName){
                 fs.writeFile("results.json",JSON.stringify(results),'utf8',()=>{})
             }
         }else{
+            console.log("Referendum",CaseName,CountyName,RegionName,"Failed Retrying.");
             ReferendumRequest(CaseName,CountyName,RegionName)
         }
     })
@@ -57,7 +58,9 @@ function getReferendum(CaseName){
 for (const CaseName in voteurls["Referendum"]){
     for(const CountyName in voteurls["Referendum"][CaseName]){
         for(const RegionName in voteurls["Referendum"][CaseName][CountyName]){
-            count["Referendum"]++;
+            if(voteurls["Referendum"][CaseName][CountyName][RegionName]){
+                count["Referendum"]++;
+            }
         }
     }
 }
