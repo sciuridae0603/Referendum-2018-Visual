@@ -6,19 +6,19 @@ var done = 0;
 var results = {};
 
 function addResult(Name , Func){
-    console.log(`[Info] ${Name} Processing....`);
+    console.log(`[URL] ${Name} Processing....`);
     needed++;
     Func.then(res => {
         results[Name] = res;
         done++;
-        console.log(`[Info] ${Name} Done!`);
+        console.log(`[URL] ${Name} Done!`);
     })
 }
 
 
 var owo = setInterval(() => {
     if (done == needed){
-        console.log("[Info] All done !")
+        console.log("[URL] All done !")
         fs.writeFile("../urls.json",JSON.stringify(results,null,2),'utf8',()=>{})        
         clearInterval(owo)
     }

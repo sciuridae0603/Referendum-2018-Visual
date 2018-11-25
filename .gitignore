@@ -19,3 +19,7 @@ yarn-error.log*
 *.sln
 *.sw*
 test.js
+
+results.json
+urls.json
+public/results.json

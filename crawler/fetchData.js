@@ -20,7 +20,7 @@ function getCount(Data){
 }
 
 function addResult(Name , Func , Data){
-    console.log(`[Info] ${Name} Processing....`);
+    console.log(`[Data] ${Name} Processing....`);
     needed++;
     var tmp = {};
     tmp["Data"] = Data;
@@ -32,17 +32,17 @@ function addResult(Name , Func , Data){
 
 var owo = setInterval(() => {
     for (const Name in running){
-        console.log(`[Info] ${Name} Progressing.....${Math.round((running[Name]["Done"] / running[Name]["Count"])*100)}%`)
+        console.log(`[Data] ${Name} Progressing.....${Math.round((running[Name]["Done"] / running[Name]["Count"])*100)}%`)
         if(running[Name]["Count"] == running[Name]["Done"]){
             results[Name] = running[Name]["Data"];
             done++
             delete running[Name]
-            console.log(`[Info] ${Name} Done!`)
+            console.log(`[Data] ${Name} Done!`)
         }
     }
     if (done == needed){
-        console.log("[Info] All done ! Writing File...")
-        fs.writeFile("../results.json",JSON.stringify(results,null,2),'utf8',()=>{})        
+        console.log("[Data] All done ! Writing File...")
+        fs.writeFile("../public/results.json",JSON.stringify(results,null,2),'utf8',()=>{})        
         clearInterval(owo)
     }
 },300)
