@@ -1,4 +1,4 @@
-const referendum2018urls = require("./referendum2018urls.json");
+const voteurls = require("./voteurls.json");
 const request = require("request")
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
@@ -6,20 +6,20 @@ var fs = require('fs');
 
 var results = {};
 
-var count = 0;
-var done = 0;
+var count = {};
+var done = {};
 
-for (const CaseName in referendum2018urls){
-    for(const CountyName in referendum2018urls[CaseName]){
-        count++;
-    }
-}
+// Referendum
 
-function getByCase(CaseName){
+count["Referendum"] = 0;
+done["Referendum"] = 0;
+results["Referendum"] = {};
+
+function getReferendum(CaseName){
     results["Referendum"][CaseName] = {};
-    for(const CountyName in referendum2018urls[CaseName]){
+    for(const CountyName in voteurls["Referendum"][CaseName]){
         request({
-            url: referendum2018urls[CaseName][CountyName]
+            url: voteurls["Referendum"][CaseName][CountyName]
         }, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 const dom = new JSDOM(body);
@@ -33,9 +33,9 @@ function getByCase(CaseName){
                 results["Referendum"][CaseName][CountyName]["VotingRights"] = parseInt(resp[5]);
                 results["Referendum"][CaseName][CountyName]["VoteRate"] = parseFloat(resp[6].replace("%",""));
                 results["Referendum"][CaseName][CountyName]["EffectiveVotingRights"] = parseFloat(resp[7].replace("%",""));
-                console.log(CaseName,CountyName,"Done");
+                console.log("Referendum",CaseName,CountyName,"Done");
                 done++;
-                if(done == count){
+                if(done["Referendum"] == count["Referendum"]){
                     fs.writeFile("results.json",JSON.stringify(results),'utf8',()=>{})
                 }
             }                
@@ -43,10 +43,13 @@ function getByCase(CaseName){
     }
 }
 
-results["Referendum"] = {};
-
-for (const CaseName in referendum2018urls){
-    console.log(CaseName)
-    getByCase(CaseName)
+for (const CaseName in voteurls["Referendum"]){
+    for(const CountyName in voteurls["Referendum"][CaseName]){
+        count["Referendum"]++;
+    }
 }
 
+for (const CaseName in voteurls["Referendum"]){
+    console.log(CaseName)
+    getReferendum(CaseName)
+}

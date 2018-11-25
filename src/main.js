@@ -16,9 +16,9 @@ var xhr = new XMLHttpRequest();
 
 xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        data = JSON.parse(xhr.responseText);
-        console.log(data)
-        for(const key in data["Referendum"]){
+        results = JSON.parse(xhr.responseText);
+        console.log(results)
+        for(const key in results["Referendum"]){
             let btn = document.createElement("button");
             btn.className = "ts button";
             btn.innerHTML = key;
@@ -26,7 +26,7 @@ xhr.onreadystatechange = function() {
                 Array.from(document.getElementsByClassName("ts button")).forEach(btn => {btn.className = "ts button"})
                 tippy('.country').destroyAll();
                 btn.className = "ts active button"
-                current = data["Referendum"][key]
+                current = results["Referendum"][key]
                 //for(const cy in current){
                 //    tippy('#'+cy, { 
                 //        content: `  ${cy} <br><br>
